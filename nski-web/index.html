@@ -49,8 +49,11 @@
   <!-- ============================================ -->
   <div id="loader" class="fixed inset-0 z-[100] bg-nski-black flex items-center justify-center">
     <div class="loader-content text-center">
-      <span class="text-nski-yellow font-bold text-3xl tracking-tight loader-logo">NSKi</span>
-      <div class="w-12 h-[1px] bg-nski-yellow/40 mx-auto mt-4 loader-line"></div>
+      <!-- SVG animated loader like Makhno -->
+      <svg class="loader-svg w-16 h-16 mx-auto" viewBox="0 0 60 60" fill="none">
+        <rect class="loader-rect" x="2" y="2" width="56" height="56" rx="2" stroke="#F5C518" stroke-width="1" pathLength="1"/>
+      </svg>
+      <span class="text-nski-yellow font-bold text-xl tracking-[0.15em] mt-6 block loader-logo" style="letter-spacing:0.15em;">NSKi</span>
     </div>
   </div>
 
@@ -99,8 +102,16 @@
   <!-- HERO SECTION — Pure dark bg + particles -->
   <!-- ============================================ -->
   <section id="hero" class="relative h-screen flex items-end overflow-hidden">
+    <!-- Background with Ken Burns slow zoom -->
+    <div class="absolute inset-0 hero-bg-ken">
+      <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1800&q=80&fm=webp&fit=crop"
+           alt="" class="w-full h-full object-cover opacity-[0.12]" loading="eager">
+    </div>
     <!-- Subtle grain texture via CSS -->
     <div class="absolute inset-0 hero-grain"></div>
+    <!-- Atmospheric gradient depth layers (Makhno-style) -->
+    <div class="absolute inset-0 bg-gradient-to-t from-nski-black via-transparent to-nski-black/50 z-[2]"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-nski-black to-transparent z-[3]"></div>
 
     <!-- Particles -->
     <div id="tsparticles" class="absolute inset-0 z-10 hidden md:block"></div>
@@ -143,15 +154,24 @@
 
       <!-- Project 1: FULL WIDTH — Casa TRAMA -->
       <div class="project-item mb-8 md:mb-12">
-        <a href="#" class="group block relative overflow-hidden">
-          <div class="img-reveal aspect-[16/9] md:aspect-[21/9] overflow-hidden">
+        <a href="#" class="project-card group block relative">
+          <div class="img-reveal aspect-[16/9] md:aspect-[21/9] overflow-hidden relative">
             <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=1400&q=80&fm=webp&fit=crop"
                  alt="Casa TRAMA" class="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]" loading="lazy">
+            <!-- Golden blur overlay (Makhno-style) -->
+            <div class="golden-glow absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+            <!-- Animated corner borders -->
+            <div class="corner-borders absolute inset-4 pointer-events-none">
+              <span class="corner-tl"></span>
+              <span class="corner-tr"></span>
+              <span class="corner-bl"></span>
+              <span class="corner-br"></span>
+            </div>
           </div>
           <div class="mt-6 md:mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-2">
-            <div>
+            <div class="overflow-hidden">
               <span class="text-nski-yellow text-xs uppercase tracking-[0.25em]">Vivienda</span>
-              <h3 class="text-3xl md:text-5xl font-bold text-nski-light mt-1 font-serif">Casa TRAMA</h3>
+              <h3 class="text-3xl md:text-5xl font-bold text-nski-light mt-1 font-serif project-title-slide">Casa TRAMA</h3>
             </div>
             <p class="text-nski-muted text-sm">Hormigón armado · Encofrado artesanal</p>
           </div>
@@ -163,14 +183,18 @@
 
         <!-- Edificio J — Tall -->
         <div class="project-item md:col-span-5">
-          <a href="#" class="group block">
-            <div class="img-reveal aspect-[3/4] overflow-hidden">
+          <a href="#" class="project-card group block">
+            <div class="img-reveal aspect-[3/4] overflow-hidden relative">
               <img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?w=600&q=80&fm=webp&fit=crop"
                    alt="Edificio J" class="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]" loading="lazy">
+              <div class="golden-glow absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <div class="corner-borders absolute inset-4 pointer-events-none">
+                <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+              </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-5 overflow-hidden">
               <span class="text-nski-yellow text-xs uppercase tracking-[0.25em]">Edificio</span>
-              <h3 class="text-2xl md:text-3xl font-bold text-nski-light mt-1 font-serif">Edificio J</h3>
+              <h3 class="text-2xl md:text-3xl font-bold text-nski-light mt-1 font-serif project-title-slide">Edificio J</h3>
               <p class="text-nski-muted text-sm mt-1">Ladrillo visto · Celosías</p>
             </div>
           </a>
@@ -178,14 +202,18 @@
 
         <!-- Casa CF — Wide, offset down -->
         <div class="project-item md:col-span-7 md:pt-24">
-          <a href="#" class="group block">
-            <div class="img-reveal aspect-[4/3] overflow-hidden">
+          <a href="#" class="project-card group block">
+            <div class="img-reveal aspect-[4/3] overflow-hidden relative">
               <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80&fm=webp&fit=crop"
                    alt="Casa CF" class="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]" loading="lazy">
+              <div class="golden-glow absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+              <div class="corner-borders absolute inset-4 pointer-events-none">
+                <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+              </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-5 overflow-hidden">
               <span class="text-nski-yellow text-xs uppercase tracking-[0.25em]">Vivienda</span>
-              <h3 class="text-2xl md:text-3xl font-bold text-nski-light mt-1 font-serif">Casa CF</h3>
+              <h3 class="text-2xl md:text-3xl font-bold text-nski-light mt-1 font-serif project-title-slide">Casa CF</h3>
               <p class="text-nski-muted text-sm mt-1">Cobogos de hormigón · Límite medianero</p>
             </div>
           </a>
@@ -195,15 +223,19 @@
 
       <!-- Project 4: Wide panoramic — Fábrica -->
       <div class="project-item">
-        <a href="#" class="group block relative overflow-hidden">
-          <div class="img-reveal aspect-[21/9] overflow-hidden">
+        <a href="#" class="project-card group block relative">
+          <div class="img-reveal aspect-[21/9] overflow-hidden relative">
             <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1400&q=80&fm=webp&fit=crop"
                  alt="Fábrica" class="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]" loading="lazy">
+            <div class="golden-glow absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+            <div class="corner-borders absolute inset-4 pointer-events-none">
+              <span class="corner-tl"></span><span class="corner-tr"></span><span class="corner-bl"></span><span class="corner-br"></span>
+            </div>
           </div>
           <div class="mt-6 md:mt-8 flex flex-col md:flex-row md:items-end md:justify-between gap-2">
-            <div>
+            <div class="overflow-hidden">
               <span class="text-nski-yellow text-xs uppercase tracking-[0.25em]">Industrial</span>
-              <h3 class="text-3xl md:text-5xl font-bold text-nski-light mt-1 font-serif">Fábrica</h3>
+              <h3 class="text-3xl md:text-5xl font-bold text-nski-light mt-1 font-serif project-title-slide">Fábrica</h3>
             </div>
             <p class="text-nski-muted text-sm">Estructura metálica · Vegetación subtropical</p>
           </div>

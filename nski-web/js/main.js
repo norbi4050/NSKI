@@ -88,8 +88,22 @@
     }
     animateCursor();
 
-    // Hover effect on links and buttons
-    var hoverTargets = document.querySelectorAll('a, button, .project-item, input, textarea');
+    // Hover effect — different sizes for different elements
+    // Project cards get bigger cursor (Makhno-style)
+    var projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(function (el) {
+      el.addEventListener('mouseenter', function () {
+        cursor.classList.add('hovering-project');
+        cursorDot.classList.add('hovering-project');
+      });
+      el.addEventListener('mouseleave', function () {
+        cursor.classList.remove('hovering-project');
+        cursorDot.classList.remove('hovering-project');
+      });
+    });
+
+    // Regular hover for other interactive elements
+    var hoverTargets = document.querySelectorAll('a:not(.project-card), button, input, textarea, .nav-link');
     hoverTargets.forEach(function (el) {
       el.addEventListener('mouseenter', function () {
         cursor.classList.add('hovering');

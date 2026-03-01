@@ -1,27 +1,31 @@
 /* =========================================
-   NSKi Arquitectura — V3 Professional Styles
+   NSKi Arquitectura — V3.5 Makhno-level Styles
+   Premium architecture studio design
    ========================================= */
 
 /* ── Variables ── */
 :root {
   --nski-yellow: #F5C518;
+  --nski-golden: #fcd299;
   --nski-black: #0A0A0A;
   --nski-dark: #111111;
   --nski-gray: #6B6B6B;
   --nski-muted: #999999;
   --nski-light: #E8E8E3;
+  --nski-warm: #e9e3e0;
+  --nski-taupe: #988d83;
   --mat-brick: #C4562A;
   --mat-concrete: #8A8A8A;
   --mat-wood: #C4933A;
+  --ease-makhno: cubic-bezier(0.15, 0.85, 0.45, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Reset & Global ── */
+/* ── Global ── */
 html {
   scroll-padding-top: 80px;
 }
 
-/* Hide default cursor on desktop when custom cursor is active */
 @media (min-width: 768px) {
   html.has-cursor,
   html.has-cursor * {
@@ -34,18 +38,22 @@ html {
   color: var(--nski-black);
 }
 
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--nski-black); }
-::-webkit-scrollbar-thumb { background: var(--nski-gray); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(245,197,24,0.3); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--nski-yellow); }
 
 body {
   background-color: var(--nski-black);
+  /* Makhno-style: aggressive negative letter-spacing globally */
+  letter-spacing: -0.02em;
 }
 
-/* ── Loader ── */
+/* ══════════════════════════════════════════
+   LOADER — SVG animated (Makhno-style)
+   ══════════════════════════════════════════ */
 #loader {
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  transition: opacity 0.8s var(--ease-makhno), visibility 0.8s var(--ease-makhno);
 }
 
 #loader.hidden {
@@ -54,56 +62,86 @@ body {
   pointer-events: none;
 }
 
-.loader-logo {
+.loader-svg {
   opacity: 0;
-  animation: loaderFadeIn 0.6s ease forwards;
+  animation: loaderSvgIn 0.4s ease 0.1s forwards;
 }
 
-.loader-line {
-  transform: scaleX(0);
-  animation: loaderLine 0.8s ease 0.3s forwards;
+.loader-rect {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: loaderDraw 1.2s var(--ease-makhno) 0.2s forwards;
+}
+
+.loader-logo {
+  opacity: 0;
+  animation: loaderFadeIn 0.5s ease 0.6s forwards;
+}
+
+@keyframes loaderSvgIn {
+  to { opacity: 1; }
+}
+
+@keyframes loaderDraw {
+  to { stroke-dashoffset: 0; }
 }
 
 @keyframes loaderFadeIn {
   to { opacity: 1; }
 }
 
-@keyframes loaderLine {
-  to { transform: scaleX(1); }
-}
-
-/* ── Custom Cursor ── */
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR
+   ══════════════════════════════════════════ */
 #cursor, #cursor-dot {
-  transition: transform 0.15s ease-out;
   will-change: transform;
 }
 
-#cursor.hovering {
-  transform: translate(-50%, -50%) scale(2.5);
-  border-color: var(--nski-yellow);
-  background: rgba(245, 197, 24, 0.06);
+#cursor {
+  transition: width 0.4s var(--ease-makhno),
+              height 0.4s var(--ease-makhno),
+              border-color 0.3s ease,
+              background 0.3s ease;
 }
 
-#cursor-dot.hovering {
+#cursor.hovering {
+  width: 3rem;
+  height: 3rem;
+  border-color: var(--nski-yellow);
+  background: rgba(245, 197, 24, 0.08);
+}
+
+#cursor.hovering-project {
+  width: 5rem;
+  height: 5rem;
+  border-color: var(--nski-golden);
+  background: rgba(252, 210, 153, 0.06);
+}
+
+#cursor-dot.hovering,
+#cursor-dot.hovering-project {
   opacity: 0;
 }
 
-/* ── Navigation ── */
+/* ══════════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════════ */
 #navbar {
   background: transparent;
-  transition: background-color 0.5s var(--ease-out-expo),
-              backdrop-filter 0.5s var(--ease-out-expo);
+  transition: background-color 0.6s var(--ease-makhno),
+              backdrop-filter 0.6s var(--ease-makhno);
 }
 
 #navbar.nav-solid {
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 10, 10, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* Desktop nav links underline animation */
+/* Nav links — Makhno style subtle underline */
 .nav-link {
   position: relative;
+  letter-spacing: 0.25em;
 }
 
 .nav-link::after {
@@ -114,7 +152,7 @@ body {
   width: 0;
   height: 1px;
   background: var(--nski-yellow);
-  transition: width 0.4s var(--ease-out-expo);
+  transition: width 0.5s var(--ease-makhno);
 }
 
 .nav-link:hover::after {
@@ -138,88 +176,236 @@ body {
 }
 
 /* Menu overlay */
-#menu-overlay {
-  transition: opacity 0.5s var(--ease-out-expo);
-}
-
-#menu-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
+#menu-overlay { transition: opacity 0.5s var(--ease-out-expo); }
+#menu-overlay.active { opacity: 1; pointer-events: all; }
 
 .menu-link {
   display: block;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
+  letter-spacing: -0.03em;
 }
 
 #menu-overlay.active .menu-link {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.5s var(--ease-out-expo),
-              transform 0.5s var(--ease-out-expo);
+  transition: opacity 0.6s var(--ease-makhno),
+              transform 0.6s var(--ease-makhno);
 }
 
 #menu-overlay.active .menu-link:nth-child(1) { transition-delay: 0.1s; }
-#menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.18s; }
-#menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.26s; }
-#menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.34s; }
+#menu-overlay.active .menu-link:nth-child(2) { transition-delay: 0.2s; }
+#menu-overlay.active .menu-link:nth-child(3) { transition-delay: 0.3s; }
+#menu-overlay.active .menu-link:nth-child(4) { transition-delay: 0.4s; }
 
-/* ── Hero ── */
-.hero-grain {
-  background: var(--nski-black);
+/* ══════════════════════════════════════════
+   HERO — Ken Burns + atmospheric depth
+   ══════════════════════════════════════════ */
+.hero-bg-ken {
+  will-change: transform;
 }
 
-/* Subtle noise texture overlay */
+.hero-bg-ken img {
+  animation: kenBurns 25s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.15) translate(-2%, -1%); }
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Film grain overlay */
 .hero-grain::after {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px;
-  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
+/* Hero entrance */
 #hero .hero-anim {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(50px);
 }
 
 #hero.loaded .hero-anim {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 1s var(--ease-out-expo),
-              transform 1s var(--ease-out-expo);
+  transition: opacity 1.2s var(--ease-makhno),
+              transform 1.2s var(--ease-makhno);
 }
 
-#hero.loaded .hero-anim:nth-child(1) { transition-delay: 0.3s; }
-#hero.loaded .hero-anim:nth-child(2) { transition-delay: 0.6s; }
+#hero.loaded .hero-anim:nth-child(1) { transition-delay: 0.4s; }
+#hero.loaded .hero-anim:nth-child(2) { transition-delay: 0.8s; }
 
-/* Hero title shimmer effect */
+/* Hero title — golden shimmer + tight tracking */
 .hero-title {
+  letter-spacing: -0.04em;
   background: linear-gradient(
     120deg,
     var(--nski-yellow) 0%,
-    var(--nski-yellow) 40%,
-    #fff 50%,
-    var(--nski-yellow) 60%,
+    var(--nski-yellow) 35%,
+    var(--nski-golden) 50%,
+    var(--nski-yellow) 65%,
     var(--nski-yellow) 100%
   );
-  background-size: 200% auto;
+  background-size: 250% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 6s ease-in-out infinite;
-  animation-delay: 2s;
+  animation: shimmer 8s ease-in-out infinite;
+  animation-delay: 3s;
 }
 
 @keyframes shimmer {
   0%, 100% { background-position: 0% center; }
-  50% { background-position: 200% center; }
+  50% { background-position: 250% center; }
 }
 
-/* ── Section Reveals (GSAP controlled) ── */
+/* ══════════════════════════════════════════
+   GOLDEN GLOW — Makhno signature hover
+   ══════════════════════════════════════════ */
+.golden-glow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(252, 210, 153, 0.15) 0%,
+    rgba(245, 197, 24, 0.05) 40%,
+    transparent 70%
+  );
+  backdrop-filter: blur(1px);
+  mix-blend-mode: screen;
+}
+
+/* ══════════════════════════════════════════
+   ANIMATED CORNER BORDERS — Makhno signature
+   ══════════════════════════════════════════ */
+.corner-borders span {
+  position: absolute;
+  display: block;
+  background: var(--nski-yellow);
+  transition: transform 0.6s var(--ease-makhno), opacity 0.4s ease;
+  opacity: 0;
+}
+
+/* Top-left */
+.corner-tl {
+  top: 0; left: 0;
+  width: 40px; height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.corner-tl::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 40px;
+  background: var(--nski-yellow);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease-makhno) 0.1s;
+}
+
+/* Top-right */
+.corner-tr {
+  top: 0; right: 0;
+  width: 40px; height: 1px;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.corner-tr::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 1px; height: 40px;
+  background: var(--nski-yellow);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease-makhno) 0.1s;
+}
+
+/* Bottom-left */
+.corner-bl {
+  bottom: 0; left: 0;
+  width: 40px; height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.corner-bl::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 1px; height: 40px;
+  background: var(--nski-yellow);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s var(--ease-makhno) 0.1s;
+}
+
+/* Bottom-right */
+.corner-br {
+  bottom: 0; right: 0;
+  width: 40px; height: 1px;
+  transform: scaleX(0);
+  transform-origin: right;
+}
+.corner-br::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 1px; height: 40px;
+  background: var(--nski-yellow);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s var(--ease-makhno) 0.1s;
+}
+
+/* Activate on card hover */
+.project-card:hover .corner-borders span {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.project-card:hover .corner-tl::after,
+.project-card:hover .corner-tr::after,
+.project-card:hover .corner-bl::after,
+.project-card:hover .corner-br::after {
+  transform: scaleY(1);
+}
+
+/* Staggered delays for choreographed reveal */
+.project-card:hover .corner-tl { transition-delay: 0s; }
+.project-card:hover .corner-tr { transition-delay: 0.08s; }
+.project-card:hover .corner-bl { transition-delay: 0.16s; }
+.project-card:hover .corner-br { transition-delay: 0.24s; }
+
+/* ══════════════════════════════════════════
+   PROJECT TITLE SLIDE — Makhno text animation
+   ══════════════════════════════════════════ */
+.project-title-slide {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.5s var(--ease-makhno);
+}
+
+.project-card:hover .project-title-slide {
+  transform: translateY(-3px);
+  color: var(--nski-golden);
+}
+
+/* ══════════════════════════════════════════
+   SECTION REVEALS
+   ══════════════════════════════════════════ */
 .section-reveal {
   opacity: 0;
   transform: translateY(50px);
@@ -230,7 +416,9 @@ body {
   transform: translateY(0);
 }
 
-/* ── Image Reveals ── */
+/* ══════════════════════════════════════════
+   IMAGE REVEALS — Curtain wipe
+   ══════════════════════════════════════════ */
 .img-reveal {
   position: relative;
   overflow: hidden;
@@ -242,7 +430,8 @@ body {
   inset: 0;
   background: var(--nski-black);
   transform-origin: left;
-  transition: transform 1.2s var(--ease-out-expo);
+  transition: transform 1.4s var(--ease-makhno);
+  z-index: 5;
 }
 
 .img-reveal.revealed::after {
@@ -250,7 +439,9 @@ body {
   transform-origin: right;
 }
 
-/* ── Project Items ── */
+/* ══════════════════════════════════════════
+   PROJECT ITEMS
+   ══════════════════════════════════════════ */
 .project-item {
   opacity: 0;
   transform: translateY(60px);
@@ -259,22 +450,24 @@ body {
 .project-item.revealed {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 1s var(--ease-out-expo),
-              transform 1s var(--ease-out-expo);
+  transition: opacity 1.2s var(--ease-makhno),
+              transform 1.2s var(--ease-makhno);
 }
 
-/* ── Material Blocks ── */
+/* ══════════════════════════════════════════
+   MATERIAL BLOCKS
+   ══════════════════════════════════════════ */
 .material-block {
   min-height: 60vh;
 }
 
 @media (min-width: 1024px) {
-  .material-block {
-    min-height: 80vh;
-  }
+  .material-block { min-height: 80vh; }
 }
 
-/* ── Process Steps ── */
+/* ══════════════════════════════════════════
+   PROCESS STEPS
+   ══════════════════════════════════════════ */
 .process-step {
   opacity: 0;
   transform: translateY(40px);
@@ -283,16 +476,18 @@ body {
 .process-step.revealed {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.8s var(--ease-out-expo),
-              transform 0.8s var(--ease-out-expo);
+  transition: opacity 0.8s var(--ease-makhno),
+              transform 0.8s var(--ease-makhno);
 }
 
-/* ── Parallax ── */
-.parallax-bg {
-  will-change: transform;
-}
+/* ══════════════════════════════════════════
+   PARALLAX
+   ══════════════════════════════════════════ */
+.parallax-bg { will-change: transform; }
 
-/* ── Form ── */
+/* ══════════════════════════════════════════
+   FORM — Makhno-style refined inputs
+   ══════════════════════════════════════════ */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -302,23 +497,17 @@ textarea:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-/* Form focus line animation */
 input:focus,
 textarea:focus {
   border-image: linear-gradient(to right, var(--nski-yellow), transparent) 1;
 }
 
-/* ── Weather Widget ── */
-#weather-widget {
-  transition: opacity 0.5s ease;
-}
+/* ══════════════════════════════════════════
+   WEATHER / WHATSAPP / PARTICLES
+   ══════════════════════════════════════════ */
+#weather-widget { transition: opacity 0.5s ease; }
+#weather-widget.visible { display: block !important; opacity: 1; }
 
-#weather-widget.visible {
-  display: block !important;
-  opacity: 1;
-}
-
-/* ── WhatsApp ── */
 .fixed.bottom-6.right-6 {
   animation: whatsappBounce 3s ease-in-out infinite;
   animation-delay: 5s;
@@ -330,11 +519,12 @@ textarea:focus {
   30% { transform: translateY(0); }
 }
 
-/* ── Particles ── */
 #tsparticles { pointer-events: none; }
 #tsparticles canvas { pointer-events: auto; }
 
-/* ── Focus Styles ── */
+/* ══════════════════════════════════════════
+   FOCUS / ACCESSIBILITY
+   ══════════════════════════════════════════ */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -343,14 +533,17 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* ── Responsive ── */
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
 @media (max-width: 640px) {
-  .hero-title {
-    font-size: clamp(4rem, 18vw, 6rem) !important;
-  }
+  .hero-title { font-size: clamp(4rem, 18vw, 6rem) !important; }
+  .corner-borders { display: none; }
 }
 
-/* ── Print ── */
+/* ══════════════════════════════════════════
+   PRINT
+   ══════════════════════════════════════════ */
 @media print {
   nav, #tsparticles, .fixed.bottom-6, #menu-overlay, #weather-widget, #loader, #cursor, #cursor-dot {
     display: none !important;
