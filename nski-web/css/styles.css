@@ -26,12 +26,6 @@ html {
   scroll-padding-top: 80px;
 }
 
-@media (min-width: 768px) {
-  html.has-cursor,
-  html.has-cursor * {
-    cursor: none !important;
-  }
-}
 
 ::selection {
   background: var(--nski-yellow);
@@ -90,38 +84,6 @@ body {
   to { opacity: 1; }
 }
 
-/* ══════════════════════════════════════════
-   CUSTOM CURSOR
-   ══════════════════════════════════════════ */
-#cursor, #cursor-dot {
-  will-change: transform;
-}
-
-#cursor {
-  transition: width 0.4s var(--ease-makhno),
-              height 0.4s var(--ease-makhno),
-              border-color 0.3s ease,
-              background 0.3s ease;
-}
-
-#cursor.hovering {
-  width: 3rem;
-  height: 3rem;
-  border-color: var(--nski-yellow);
-  background: rgba(245, 197, 24, 0.08);
-}
-
-#cursor.hovering-project {
-  width: 5rem;
-  height: 5rem;
-  border-color: var(--nski-golden);
-  background: rgba(252, 210, 153, 0.06);
-}
-
-#cursor-dot.hovering,
-#cursor-dot.hovering-project {
-  opacity: 0;
-}
 
 /* ══════════════════════════════════════════
    NAVIGATION
@@ -481,6 +443,41 @@ body {
 }
 
 /* ══════════════════════════════════════════
+   PROCESS SLIDER
+   ══════════════════════════════════════════ */
+.process-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: grab;
+}
+
+.process-slider:active {
+  cursor: grabbing;
+}
+
+.process-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 40px;
+  height: 100%;
+  background: transparent;
+  cursor: grab;
+}
+
+.process-slider::-moz-range-thumb {
+  width: 40px;
+  height: 100%;
+  background: transparent;
+  border: none;
+  cursor: grab;
+}
+
+.process-slider:focus-visible {
+  outline: 2px solid var(--nski-yellow);
+  outline-offset: 4px;
+}
+
+/* ══════════════════════════════════════════
    PARALLAX
    ══════════════════════════════════════════ */
 .parallax-bg { will-change: transform; }
@@ -545,7 +542,7 @@ textarea:focus-visible {
    PRINT
    ══════════════════════════════════════════ */
 @media print {
-  nav, #tsparticles, .fixed.bottom-6, #menu-overlay, #weather-widget, #loader, #cursor, #cursor-dot {
+  nav, #tsparticles, .fixed.bottom-6, #menu-overlay, #weather-widget, #loader {
     display: none !important;
   }
   body { background: white; color: black; }

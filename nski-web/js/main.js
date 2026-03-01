@@ -55,64 +55,30 @@
   }
 
   // ══════════════════════════════════════
-  // 2. CUSTOM CURSOR
+  // 2. PROCESS SLIDER (Before/After)
   // ══════════════════════════════════════
 
-  var cursor = document.getElementById('cursor');
-  var cursorDot = document.getElementById('cursor-dot');
+  var processSlider = document.getElementById('process-slider');
+  var processAfter = document.getElementById('process-after');
+  var sliderLine = document.getElementById('slider-line');
+  var phaseText = document.getElementById('phase-text');
 
-  if (cursor && cursorDot && window.innerWidth >= 768) {
-    document.documentElement.classList.add('has-cursor');
+  if (processSlider && processAfter && sliderLine) {
+    processSlider.addEventListener('input', function () {
+      var val = this.value;
+      processAfter.style.clipPath = 'inset(0 ' + (100 - val) + '% 0 0)';
+      sliderLine.style.left = val + '%';
 
-    var mouseX = 0, mouseY = 0;
-    var cursorX = 0, cursorY = 0;
-    var dotX = 0, dotY = 0;
-
-    document.addEventListener('mousemove', function (e) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function animateCursor() {
-      // Smooth follow for outer circle
-      cursorX += (mouseX - cursorX) * 0.12;
-      cursorY += (mouseY - cursorY) * 0.12;
-      cursor.style.transform = 'translate(' + (cursorX - 10) + 'px, ' + (cursorY - 10) + 'px)';
-
-      // Fast follow for dot
-      dotX += (mouseX - dotX) * 0.5;
-      dotY += (mouseY - dotY) * 0.5;
-      cursorDot.style.transform = 'translate(' + (dotX - 3) + 'px, ' + (dotY - 3) + 'px)';
-
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
-
-    // Hover effect — different sizes for different elements
-    // Project cards get bigger cursor (Makhno-style)
-    var projectCards = document.querySelectorAll('.project-card');
-    projectCards.forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
-        cursor.classList.add('hovering-project');
-        cursorDot.classList.add('hovering-project');
-      });
-      el.addEventListener('mouseleave', function () {
-        cursor.classList.remove('hovering-project');
-        cursorDot.classList.remove('hovering-project');
-      });
-    });
-
-    // Regular hover for other interactive elements
-    var hoverTargets = document.querySelectorAll('a:not(.project-card), button, input, textarea, .nav-link');
-    hoverTargets.forEach(function (el) {
-      el.addEventListener('mouseenter', function () {
-        cursor.classList.add('hovering');
-        cursorDot.classList.add('hovering');
-      });
-      el.addEventListener('mouseleave', function () {
-        cursor.classList.remove('hovering');
-        cursorDot.classList.remove('hovering');
-      });
+      // Update phase text based on position
+      if (phaseText) {
+        if (val < 33) {
+          phaseText.textContent = 'Terreno — Relevamiento y análisis del sitio';
+        } else if (val < 66) {
+          phaseText.textContent = 'Estructura — Obra gruesa y materialidad';
+        } else {
+          phaseText.textContent = 'Terminada — Proyecto entregado y habitado';
+        }
+      }
     });
   }
 
